@@ -1,4 +1,8 @@
 package com.example.enaaskillsplatform.enums;
 
-public class StatutValidation {
+public enum StatutValidation {
+    NON_VALIDE,
+    EN_COURS,
+    VALIDE,
+
 }
