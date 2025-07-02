@@ -5,7 +5,9 @@ import com.example.enaaskillsplatform.entity.Competence;
 import com.example.enaaskillsplatform.entity.SousCompetence;
 import com.example.enaaskillsplatform.repository.SousCompetenceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -16,9 +18,10 @@ public class SousCompetenceService {
 
     public SousCompetence getSousCompetenceById(Long id) {
         return sousCompetenceRepository.findById(id)
-                .orElse(null);
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Sous-compétence non trouvée avec l'id : " + id
+                ));
     }
-
     public SousCompetence createSousCompetence(Long competenceId, SousCompetenceDTO sousCompetenceDTO) {
         Competence competence = competenceService.getCompetenceById(competenceId);
         SousCompetence newSousCompetence = new SousCompetence();

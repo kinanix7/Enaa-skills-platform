@@ -4,7 +4,9 @@ import com.example.enaaskillsplatform.dto.CompetenceDTO;
 import com.example.enaaskillsplatform.entity.Competence;
 import com.example.enaaskillsplatform.repository.CompetenceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,9 +22,10 @@ public class CompetenceService {
 
     public Competence getCompetenceById(Long id) {
         return competenceRepository.findById(id)
-                .orElse(null);
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Compétence non trouvée avec l'id : " + id
+                ));
     }
-
     public Competence createCompetence(CompetenceDTO competenceDTO) {
         Competence newCompetence = new Competence();
         newCompetence.setCode(competenceDTO.getCode());

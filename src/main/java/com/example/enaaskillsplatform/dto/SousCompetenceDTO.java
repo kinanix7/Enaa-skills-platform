@@ -6,4 +6,5 @@ import lombok.Data;
 public class SousCompetenceDTO {
 
     private String titre;
+    private Long competenceId;
 }
